@@ -115,7 +115,7 @@ describe Chewy::Index::Specification do
         expect { specification2.lock! }.to change { specification2.locked }.from(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-        )).to(
+        ).to(
           'settings' => {'analyzer' => {}, 'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
         )
@@ -125,7 +125,7 @@ describe Chewy::Index::Specification do
         expect { specification3.lock! }.to change { specification3.locked }.from(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-        )).to(
+        ).to(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}, 'population' => {'type' => 'integer'}}}}
         )
