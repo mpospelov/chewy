@@ -46,14 +46,14 @@ module Chewy
       # @see Chewy::Index.specification_hash
       # @return [Hash] a JSON-ready hash
       def current
-        JSON.dump(@index.specification_hash.as_json)
+        @index.specification_hash.as_json
       end
 
       # Compares previously locked and current specifications.
       #
       # @return [true, false] the result of comparison
       def changed?
-        JSON.parse(current) != JSON.parse(locked)
+        current != locked
       end
     end
   end

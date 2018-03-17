@@ -70,7 +70,6 @@ describe Chewy::Index::Specification do
       before { specification1.lock! }
 
       specify do
-
         expect { specification5.lock! }.to change { Chewy::Stash::Specification.all.hits }.to([{
           '_index' => 'chewy_specifications',
           '_type' => 'specification',
@@ -96,37 +95,37 @@ describe Chewy::Index::Specification do
 
   describe '#locked' do
     specify do
-      expect { specification1.lock! }.to change { specification1.locked }.from('{}').to(JSON.dump(
+      expect { specification1.lock! }.to change { specification1.locked }.from({}).to(
         'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
         'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-      ))
+      )
     end
 
     specify do
-      expect { specification5.lock! }.to change { specification5.locked }.from('{}').to(JSON.dump(
+      expect { specification5.lock! }.to change { specification5.locked }.from({}).to(
         'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
         'mappings' => {'city' => {'properties' => {'population' => {'type' => 'integer'}}}}
-      ))
+      )
     end
 
     context do
       before { specification1.lock! }
 
       specify do
-        expect { specification2.lock! }.to change { specification2.locked }.from(JSON.dump(
+        expect { specification2.lock! }.to change { specification2.locked }.from(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-        )).to(
+        ).to(
           'settings' => {'analyzer' => {}, 'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
         )
       end
 
       specify do
-        expect { specification3.lock! }.to change { specification3.locked }.from(JSON.dump(
+        expect { specification3.lock! }.to change { specification3.locked }.from(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-        )).to(
+        ).to(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}, 'population' => {'type' => 'integer'}}}}
         )
