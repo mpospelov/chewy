@@ -59,17 +59,10 @@ describe Chewy::Index::Specification do
         '_type' => 'specification',
         '_id' => 'places',
         '_score' => 1.0,
-<<<<<<< HEAD
-        '_source' => {'specification' => JSON.dump(
-          'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
-          'mappings' => {'city' => {'properties' => {'name' => {'type' => 'string'}}}}
-        ), 'value' => nil}
-=======
         '_source' => {'specification' => Base64.encode64({
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
         }.to_json)}
->>>>>>> source/master
       }])
     end
 
@@ -77,29 +70,7 @@ describe Chewy::Index::Specification do
       before { specification1.lock! }
 
       specify do
-<<<<<<< HEAD
-        expect { specification5.lock! }.to change { Chewy::Stash::Specification.all.hits }.to([
-          {
-            '_index' => 'chewy_stash',
-            '_type' => 'specification',
-            '_id' => 'places',
-            '_score' => 1.0,
-            '_source' => {
-              'value' => nil,
-              'specification' => "{\"settings\":{\"index\":{\"number_of_shards\":1,\"number_of_replicas\":0}},\"mappings\":{\"city\":{\"properties\":{\"name\":{\"type\":\"string\"}}}}}"
-            }
-          }, {
-            '_index' => 'chewy_stash',
-            '_type' => 'specification',
-            '_id' => 'namespace/cities',
-            '_score' => 1.0,
-            '_source' => {
-              'value' => nil,
-              'specification' => "{\"settings\":{\"index\":{\"number_of_shards\":1,\"number_of_replicas\":0}},\"mappings\":{\"city\":{\"properties\":{\"population\":{\"type\":\"integer\"}}}}}"
-            }
-          }
-        ])
-=======
+
         expect { specification5.lock! }.to change { Chewy::Stash::Specification.all.hits }.to([{
           '_index' => 'chewy_specifications',
           '_type' => 'specification',
@@ -119,7 +90,6 @@ describe Chewy::Index::Specification do
             'mappings' => {'city' => {'properties' => {'population' => {'type' => 'integer'}}}}
           }.to_json)}
         }])
->>>>>>> source/master
       end
     end
   end
@@ -128,13 +98,8 @@ describe Chewy::Index::Specification do
     specify do
       expect { specification1.lock! }.to change { specification1.locked }.from('{}').to(JSON.dump(
         'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
-<<<<<<< HEAD
-        'mappings' => {'city' => {'properties' => {'name' => {'type' => 'string'}}}}
-      ))
-=======
         'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-      )
->>>>>>> source/master
+      ))
     end
 
     specify do
@@ -150,54 +115,31 @@ describe Chewy::Index::Specification do
       specify do
         expect { specification2.lock! }.to change { specification2.locked }.from(JSON.dump(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
-<<<<<<< HEAD
-          'mappings' => {'city' => {'properties' => {'name' => {'type' => 'string'}}}}
-        )).to(JSON.dump(
-          'settings' => {'analyzer' => {}, 'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
-          'mappings' => {'city' => {'properties' => {'name' => {'type' => 'string'}}}}
-        ))
-=======
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-        ).to(
+        )).to(
           'settings' => {'analyzer' => {}, 'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
         )
->>>>>>> source/master
       end
 
       specify do
         expect { specification3.lock! }.to change { specification3.locked }.from(JSON.dump(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
-<<<<<<< HEAD
-          'mappings' => {'city' => {'properties' => {'name' => {'type' => 'string'}}}}
-        )).to(JSON.dump(
-          'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
-          'mappings' => {'city' => {'properties' => {'name' => {'type' => 'string'}, 'population' => {'type' => 'integer'}}}}
-        ))
-=======
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}}
-        ).to(
+        )).to(
           'settings' => {'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
           'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}, 'population' => {'type' => 'integer'}}}}
         )
->>>>>>> source/master
       end
     end
   end
 
   describe '#current' do
     specify do
-<<<<<<< HEAD
-      expect(specification2.current).to eq(JSON.dump(
-        'settings' => {'analyzer' => {}, 'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}},
-        'mappings' => {'city' => {'properties' => {'name' => {'type' => 'string'}}}}
-      ))
-=======
       expect(specification2.current).to eq(
         'mappings' => {'city' => {'properties' => {'founded_on' => {'type' => 'date'}}}},
         'settings' => {'analyzer' => {}, 'index' => {'number_of_shards' => 1, 'number_of_replicas' => 0}}
       )
->>>>>>> source/master
     end
   end
 
