@@ -76,7 +76,7 @@ describe Chewy::Search do
         end
 
         define_type Country do
-          field :name, type: :keyword
+          field :name, KEYWORD_FIELD
           field :rating, type: :integer
         end
       end

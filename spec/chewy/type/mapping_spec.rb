@@ -106,7 +106,7 @@ describe Chewy::Type::Mapping do
           expect(product.mappings_hash).to eq(product: {
             properties: {
               name: {type: 'integer'},
-              identifier: {type: 'text'}
+              identifier: {type: Chewy.default_field_type}
             },
             other_option: 'option_value',
             _parent: {type: 'something_else'}
